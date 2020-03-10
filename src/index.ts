@@ -10,60 +10,60 @@ type EnvironmentOptions = {
 class Environment {
   // Irish exceptions.
   private EXCEPTIONS = [
-    ['\bMacEdo', 'Macedo'],
-    ['\bMacEvicius', 'Macevicius'],
-    ['\bMacHado', 'Machado'],
-    ['\bMacHar', 'Machar'],
-    ['\bMacHin', 'Machin'],
-    ['\bMacHlin', 'Machlin'],
-    ['\bMacIas', 'Macias'],
-    ['\bMacIulis', 'Maciulis'],
-    ['\bMacKie', 'Mackie'],
-    ['\bMacKle', 'Mackle'],
-    ['\bMacKlin', 'Macklin'],
-    ['\bMacKmin', 'Mackmin'],
-    ['\bMacQuarie', 'Macquarie'],
-    ['\bMacOmber', 'Macomber'],
-    ['\bMacIn', 'Macin'],
-    ['\bMacKintosh', 'Mackintosh'],
-    ['\bMacKen', 'Macken'],
-    ['\bMacHen', 'Machen'],
-    ['\bMacisaac', 'MacIsaac'],
-    ['\bMacHiel', 'Machiel'],
-    ['\bMacIol', 'Maciol'],
-    ['\bMacKell', 'Mackell'],
-    ['\bMacKlem', 'Macklem'],
-    ['\bMacKrell', 'Mackrell'],
-    ['\bMacLin', 'Maclin'],
-    ['\bMacKey', 'Mackey'],
-    ['\bMacKley', 'Mackley'],
-    ['\bMacHell', 'Machell'],
-    ['\bMacHon', 'Machon'],
+    [/\bMacEdo/, 'Macedo'],
+    [/\bMacEvicius/, 'Macevicius'],
+    [/\bMacHado/, 'Machado'],
+    [/\bMacHar/, 'Machar'],
+    [/\bMacHin/, 'Machin'],
+    [/\bMacHlin/, 'Machlin'],
+    [/\bMacIas/, 'Macias'],
+    [/\bMacIulis/, 'Maciulis'],
+    [/\bMacKie/, 'Mackie'],
+    [/\bMacKle/, 'Mackle'],
+    [/\bMacKlin/, 'Macklin'],
+    [/\bMacKmin/, 'Mackmin'],
+    [/\bMacQuarie/, 'Macquarie'],
+    [/\bMacOmber/, 'Macomber'],
+    [/\bMacIn/, 'Macin'],
+    [/\bMacKintosh/, 'Mackintosh'],
+    [/\bMacKen/, 'Macken'],
+    [/\bMacHen/, 'Machen'],
+    [/\bMacisaac/, 'MacIsaac'],
+    [/\bMacHiel/, 'Machiel'],
+    [/\bMacIol/, 'Maciol'],
+    [/\bMacKell/, 'Mackell'],
+    [/\bMacKlem/, 'Macklem'],
+    [/\bMacKrell/, 'Mackrell'],
+    [/\bMacLin/, 'Maclin'],
+    [/\bMacKey/, 'Mackey'],
+    [/\bMacKley/, 'Mackley'],
+    [/\bMacHell/, 'Machell'],
+    [/\bMacHon/, 'Machon'],
   ]
 
   // General replacements.
   private REPLACEMENTS = [
-    ['\bAl(?=s+w)', 'al'], // al Arabic or forename Al.
-    ['\bAp\b', 'ap'], // ap Welsh.
-    ['\b(Bin|Binti|Binte)\b', 'bin'], // bin, binti, binte Arabic.
-    ['\bDell([ae])\b', 'dell\1'], // della and delle Italian.
-    ['\bD([aeiou])\b', 'd\1'], // da, de, di Italian; du French; do Brasil.
-    ['\bD([ao]s)\b', 'd\1'], // das, dos Brasileiros.
-    ['\bDe([lrn])\b', 'de\1'], // del Italian; der/den Dutch/Flemish.
-    ['\bL([eo])\b', 'l\1'], // lo Italian; le French.
-    ['\bTe([rn])\b', 'te\1'], // ten, ter Dutch/Flemish.
-    ['\bVan(?=s+w)', 'van'], // van German or forename Van.
-    ['\bVon\b', 'von'], // von Dutch/Flemish.
+    [/\bAl(?=s+w)/, 'al'], // al Arabic or forename Al.
+    [/\bAp\b/, 'ap'], // ap Welsh.
+    [/\b(Bin|Binti|Binte)\b/, 'bin'], // bin, binti, binte Arabic.
+    [/\bDell([ae])\b/, 'dell'], // della and delle Italian.
+    [/\bD([aeiou])\b/, 'd'], // da, de, di Italian; du French; do Brasil.
+    [/\bD([ao]s)\b/, 'd'], // das, dos Brasileiros.
+    [/\bDe([lrn])\b/, 'de'], // del Italian; der/den Dutch/Flemish.
+    [/\bL([eo])\b/, 'l'], // lo Italian; le French.
+    [/\bTe([rn])\b/, 'te'], // ten, ter Dutch/Flemish.
+    [/\bVan(?=\s+\w)/, 'van'], // van German or forename Van.
+    [/\bVon\b/, 'von'], // von Dutch/Flemish.
   ]
 
   private SPANISH = [
-    ['\bEl\b', 'el'], // el Greek or El Spanish.
-    ['\bLa\b', 'la'], // la French or La Spanish.
+    [/\bEl\b/, 'el'], // el Greek or El Spanish.
+    [/\bLa\b/, 'la'], // la French or La Spanish.
   ]
 
   private HEBREW = [
-    ['\bBen(?=s+w)', 'ben'], // ben Hebrew or forename Ben.
-    ['\bBat(?=s+w)', 'bat'], // bat Hebrew or forename Bat.
+    [/\bBen(?=s+w)/, 'ben'], // ben Hebrew or forename Ben.
+    [/\bBat(?=s+w)/, 'bat'], // bat Hebrew or forename Bat.
   ]
 
   // Spanish conjunctions.
@@ -75,28 +75,28 @@ class Environment {
   // Post nominal values.
   // prettier-ignore
   private POST_NOMINALS = [
-      'ACILEx', 'ACSM', 'ADC', 'AEPC', 'AFC', 'AFM', 'AICSM', 'AKC', 'AM', 'ARBRIBA', 'ARCS', 'ARRC', 'ARSM', 'AUH', 'AUS',
-      'BA', 'BArch', 'BCh', 'BChir', 'BCL', 'BDS', 'BEd', 'BEM', 'BEng', 'BM', 'BS', 'BSc', 'BSW', 'BVM&S', 'BVScBVetMed',
-      'CB', 'CBE', 'CEng', 'CertHE', 'CGC', 'CGM', 'CH', 'CIE', 'CMarEngCMarSci', 'CMarTech', 'CMG', 'CMILT', 'CML', 'CPhT', 'CPLCTP', 'CPM', 'CQSW', 'CSciTeach', 'CSI', 'CTL', 'CVO',
-      'DBE', 'DBEnv', 'DC', 'DCB', 'DCM', 'DCMG', 'DConstMgt', 'DCVO', 'DD', 'DEM', 'DFC', 'DFM', 'DIC', 'Dip', 'DipHE', 'DipLP', 'DipSW', 'DL', 'DLitt', 'DLP', 'DPhil', 'DProf', 'DPT', 'DREst', 'DSC', 'DSM', 'DSO', 'DSocSci',
-      'ED', 'EdD', 'EJLog', 'EMLog', 'EN', 'EngD', 'EngTech', 'ERD', 'ESLog',
-      'FADO', 'FAWM', 'FBDOFCOptom', 'FCEM', 'FCILEx', 'FCILT', 'FCSP.', 'FdAFdSc', 'FdEng', 'FFHOM', 'FFPM', 'FRCAFFPMRCA', 'FRCGP', 'FRCOG', 'FRCP', 'FRCPsych', 'FRCS', 'FRCVS', 'FSCR.',
-      'GBE', 'GC', 'GCB', 'GCIE', 'GCILEx', 'GCMG', 'GCSI', 'GCVO', 'GM',
-      'HNC', 'HNCert', 'HND', 'HNDip',
-      'ICTTech', 'IDSM', 'IEng', 'IMarEng', 'IOMCPM', 'ISO',
-      'J', 'JP', 'JrLog',
-      'KBE', 'KC', 'KCB', 'KCIE', 'KCMG', 'KCSI', 'KCVO', 'KG', 'KP', 'KT',
-      'LFHOM', 'LG', 'LJ', 'LLB', 'LLD', 'LLM', 'Log', 'LPE', 'LT', 'LVO',
-      'MA', 'MAcc', 'MAnth', 'MArch', 'MarEngTech', 'MB', 'MBA', 'MBChB', 'MBE', 'MBEIOM', 'MBiochem', 'MC', 'MCEM', 'MCGI', 'MCh.', 'MChem', 'MChiro', 'MClinRes', 'MComp', 'MCOptom', 'MCSM', 'MCSP', 'MD', 'MEarthSc', 'MEng', 'MEnt', 'MEP', 'MFHOM', 'MFin', 'MFPM', 'MGeol', 'MILT', 'MJur', 'MLA', 'MLitt', 'MM', 'MMath', 'MMathStat', 'MMORSE', 'MMus', 'MOst', 'MP', 'MPAMEd', 'MPharm', 'MPhil', 'MPhys', 'MRCGP', 'MRCOG', 'MRCP', 'MRCPath', 'MRCPCHFRCPCH', 'MRCPsych', 'MRCS', 'MRCVS', 'MRes', 'MS', 'MSc', 'MScChiro', 'MSci', 'MSCR', 'MSM', 'MSocSc', 'MSP', 'MSt', 'MSW', 'MSYP', 'MVO',
-      'NPQH',
-      'OBE', 'OBI', 'OM', 'OND',
-      'PgC', 'PGCAP', 'PGCE', 'PgCert', 'PGCHE', 'PgCLTHE', 'PgD', 'PGDE', 'PgDip', 'PhD', 'PLog', 'PLS',
-      'QAM', 'QC', 'QFSM', 'QGM', 'QHC', 'QHDS', 'QHNS', 'QHP', 'QHS', 'QPM', 'QS', 'QTSCSci',
-      'RD', 'RFHN', 'RGN', 'RHV', 'RIAI', 'RIAS', 'RM', 'RMN', 'RN', 'RN1RNA', 'RN2', 'RN3', 'RN4', 'RN5', 'RN6', 'RN7', 'RN8', 'RN9', 'RNC', 'RNLD', 'RNMH', 'ROH', 'RRC', 'RSAW', 'RSci', 'RSciTech', 'RSCN', 'RSN', 'RVM', 'RVN',
-      'SCHM', 'SCJ', 'SCLD', 'SEN', 'SGM', 'SL', 'SPANSPMH', 'SPCC', 'SPCN', 'SPDN', 'SPHP', 'SPLD', 'SrLog', 'SRN', 'SROT',
-      'TD',
-      'UD',
-      'V100', 'V200', 'V300', 'VC', 'VD', 'VetMB', 'VN', 'VRD'
+    'ACILEx', 'ACSM', 'ADC', 'AEPC', 'AFC', 'AFM', 'AICSM', 'AKC', 'AM', 'ARBRIBA', 'ARCS', 'ARRC', 'ARSM', 'AUH', 'AUS',
+    'BA', 'BArch', 'BCh', 'BChir', 'BCL', 'BDS', 'BEd', 'BEM', 'BEng', 'BM', 'BS', 'BSc', 'BSW', 'BVM&S', 'BVScBVetMed',
+    'CB', 'CBE', 'CEng', 'CertHE', 'CGC', 'CGM', 'CH', 'CIE', 'CMarEngCMarSci', 'CMarTech', 'CMG', 'CMILT', 'CML', 'CPhT', 'CPLCTP', 'CPM', 'CQSW', 'CSciTeach', 'CSI', 'CTL', 'CVO',
+    'DBE', 'DBEnv', 'DC', 'DCB', 'DCM', 'DCMG', 'DConstMgt', 'DCVO', 'DD', 'DEM', 'DFC', 'DFM', 'DIC', 'Dip', 'DipHE', 'DipLP', 'DipSW', 'DL', 'DLitt', 'DLP', 'DPhil', 'DProf', 'DPT', 'DREst', 'DSC', 'DSM', 'DSO', 'DSocSci',
+    'ED', 'EdD', 'EJLog', 'EMLog', 'EN', 'EngD', 'EngTech', 'ERD', 'ESLog',
+    'FADO', 'FAWM', 'FBDOFCOptom', 'FCEM', 'FCILEx', 'FCILT', 'FCSP.', 'FdAFdSc', 'FdEng', 'FFHOM', 'FFPM', 'FRCAFFPMRCA', 'FRCGP', 'FRCOG', 'FRCP', 'FRCPsych', 'FRCS', 'FRCVS', 'FSCR.',
+    'GBE', 'GC', 'GCB', 'GCIE', 'GCILEx', 'GCMG', 'GCSI', 'GCVO', 'GM',
+    'HNC', 'HNCert', 'HND', 'HNDip',
+    'ICTTech', 'IDSM', 'IEng', 'IMarEng', 'IOMCPM', 'ISO',
+    'J', 'JP', 'JrLog',
+    'KBE', 'KC', 'KCB', 'KCIE', 'KCMG', 'KCSI', 'KCVO', 'KG', 'KP', 'KT',
+    'LFHOM', 'LG', 'LJ', 'LLB', 'LLD', 'LLM', 'Log', 'LPE', 'LT', 'LVO',
+    'MA', 'MAcc', 'MAnth', 'MArch', 'MarEngTech', 'MB', 'MBA', 'MBChB', 'MBE', 'MBEIOM', 'MBiochem', 'MC', 'MCEM', 'MCGI', 'MCh.', 'MChem', 'MChiro', 'MClinRes', 'MComp', 'MCOptom', 'MCSM', 'MCSP', 'MD', 'MEarthSc', 'MEng', 'MEnt', 'MEP', 'MFHOM', 'MFin', 'MFPM', 'MGeol', 'MILT', 'MJur', 'MLA', 'MLitt', 'MM', 'MMath', 'MMathStat', 'MMORSE', 'MMus', 'MOst', 'MP', 'MPAMEd', 'MPharm', 'MPhil', 'MPhys', 'MRCGP', 'MRCOG', 'MRCP', 'MRCPath', 'MRCPCHFRCPCH', 'MRCPsych', 'MRCS', 'MRCVS', 'MRes', 'MS', 'MSc', 'MScChiro', 'MSci', 'MSCR', 'MSM', 'MSocSc', 'MSP', 'MSt', 'MSW', 'MSYP', 'MVO',
+    'NPQH',
+    'OBE', 'OBI', 'OM', 'OND',
+    'PgC', 'PGCAP', 'PGCE', 'PgCert', 'PGCHE', 'PgCLTHE', 'PgD', 'PGDE', 'PgDip', 'PhD', 'PLog', 'PLS',
+    'QAM', 'QC', 'QFSM', 'QGM', 'QHC', 'QHDS', 'QHNS', 'QHP', 'QHS', 'QPM', 'QS', 'QTSCSci',
+    'RD', 'RFHN', 'RGN', 'RHV', 'RIAI', 'RIAS', 'RM', 'RMN', 'RN', 'RN1RNA', 'RN2', 'RN3', 'RN4', 'RN5', 'RN6', 'RN7', 'RN8', 'RN9', 'RNC', 'RNLD', 'RNMH', 'ROH', 'RRC', 'RSAW', 'RSci', 'RSciTech', 'RSCN', 'RSN', 'RVM', 'RVN',
+    'SCHM', 'SCJ', 'SCLD', 'SEN', 'SGM', 'SL', 'SPANSPMH', 'SPCC', 'SPCN', 'SPDN', 'SPHP', 'SPLD', 'SrLog', 'SRN', 'SROT',
+    'TD',
+    'UD',
+    'V100', 'V200', 'V300', 'VC', 'VD', 'VetMB', 'VN', 'VRD'
   ];
 
   // Excluded post-nominals
@@ -156,6 +156,29 @@ class Environment {
       name = name.replace(pattern, replacement)
     }
 
+    return this.processOptions(name)
+  }
+
+  private split(name: string): string {
+    // Split names on regex whitespace, dash or apostrophe, workaround for
+    // Javascript regex word boundary \b splitting on unicode characters
+    // http://stackoverflow.com/questions/5311618/javascript-regular-expression-problem-with-b-and-international-characters
+    const splitters = [
+      { s: /\s/, r: ' ' },
+      { s: /-/, r: '-' },
+      { s: /'/, r: "'" },
+      { s: /"/, r: '"' },
+      { s: /\(/, r: '(' },
+      { s: /\./, r: '.' },
+    ]
+
+    for (const splitter of splitters) {
+      const elArr = name.split(splitter.s)
+      for (let j = 0; j < elArr.length; j++) {
+        elArr[j] = elArr[j].charAt(0).toUpperCase() + elArr[j].slice(1)
+      }
+      name = elArr.join(splitter.r)
+    }
     return name
   }
 
@@ -186,6 +209,7 @@ class Environment {
     name = name.toLowerCase()
 
     name = name.replace(/\b\w/, (...matches) => matches[0].toUpperCase())
+    name = this.split(name)
 
     // Lowercase 's
     name = name.replace(/'\w\b/, (...matches) => matches[0].toLowerCase())
@@ -211,7 +235,7 @@ class Environment {
       replacements = replacements.concat(this.HEBREW)
     }
 
-    return replacements
+    return replacements as string[][]
   }
 
   /**
@@ -245,7 +269,7 @@ class Environment {
 
     // Now fix "Mac" exceptions
     for (const [pattern, replacement] of this.EXCEPTIONS) {
-      name = name.replace(pattern, replacement)
+      name = name.replace(pattern, replacement as string)
     }
 
     return name
@@ -285,7 +309,7 @@ class Environment {
   private fixPostNominal(name: string): string {
     const postNominals = this.POST_NOMINALS.filter(x => !this.postNominalsExcluded.includes(x))
     for (const postNominal of postNominals) {
-      name = name.replace(new RegExp('\b' + postNominal + '\b', 'ix'), postNominal)
+      name = name.replace(new RegExp('\b' + postNominal + '\b'), postNominal)
     }
     return name
   }
@@ -315,5 +339,6 @@ class Environment {
 
 const defaultEnvironment = new Environment({})
 export const checkName = (name: string): boolean => defaultEnvironment.checkName(name)
+export const nameCase = (name: string): string => defaultEnvironment.nameCase(name)
 
 export default Environment
