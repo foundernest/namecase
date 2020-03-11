@@ -59,7 +59,7 @@
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^25.1.0",
-    "microbundle": "^0.11.0",
+    "microbundle": "^0.12.0-next",
     "np": "^6.2.0",
     "prettier": "^1.19.1",
     "ts-jest": "^25.2.1",
