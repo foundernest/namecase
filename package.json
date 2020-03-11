@@ -1,51 +1,50 @@
 {
-  "name": "namecase",
-  "version": "1.0.0",
-  "description": "",
+  "name": "name-case",
+  "version": "0.1.0",
+  "description": "A library for fixing capitalization of people's names. Based on tamtamchik PHP library.",
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
   "source": "src/index.ts",
-  "types": "dist/index.d.ts",
   "module": "dist/index.module.js",
   "unpkg": "dist/index.umd.js",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "name-case",
+    "namecase",
+    "name",
+    "capitalization",
+    "names",
+    "case",
+    "internationalization"
+  ],
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "microbundle",
     "dev": "microbundle watch",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "format": "prettier --write src/**/*.ts",
-    "lint": "eslint src/**/*.ts"
+    "format": "prettier --write {src,__tests__}/**/*.ts",
+    "lint": "eslint {src,__tests__}/**/*.ts",
+    "coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn test && yarn lint",
+    "preversion": "yarn lint",
+    "version": "yarn format && git add -A",
+    "postversion": "git push && git push --tags"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/dist/",
-      "/lib/"
-    ],
-    "watchPathIgnorePatterns": [
-      "<rootDir>/node_modules"
-    ],
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "@src/(.*)": "<rootDir>/src/$1",
-      "@test/(.*)": "<rootDir>/test/$1"
-    }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foundernest/name-case.git"
   },
-  "author": "",
-  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/foundernest/name-case/issues"
+  },
+  "homepage": "https://github.com/foundernest/name-case#readme",
+  "author": "Daniel Seijo <daniseijo.dev@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^25.1.4",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
