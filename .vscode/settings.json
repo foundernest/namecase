@@ -1,4 +1,8 @@
 {
   "editor.rulers": [120],
-  "cSpell.words": ["postnominal", "namecase"]
+  "cSpell.words": [
+    "foundernest",
+    "namecase",
+    "postnominal"
+  ]
 }

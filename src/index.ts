@@ -258,7 +258,7 @@ class Environment {
   private updateMac(name: string): string {
     name = name.replace(
       /\b(Ma?c)([A-Za-z]+)/,
-      (...matches) => matches[1] + matches[2].charAt(0).toUpperCase() + matches[2].substring(1),
+      (...matches) => matches[1] + matches[2].charAt(0).toUpperCase() + matches[2].substring(1)
     )
 
     // Now fix "Mac" exceptions
@@ -293,7 +293,7 @@ class Environment {
     for (const conjunction of this.CONJUNCTIONS) {
       name = name.replace(
         new RegExp(`(?<=[\\s,.:;"'-(]|^)${conjunction}(?=[\\s,.:;"'-(]|$)`, 'g'),
-        conjunction.toLowerCase(),
+        conjunction.toLowerCase()
       )
     }
     return name
@@ -310,7 +310,7 @@ class Environment {
     for (const postNominal of postNominals) {
       name = name.replace(
         new RegExp(`(?<=[\\s,.:;"'-(]|^)${this.capitalizeFirstLetters(postNominal)}(?=[\\s,.:;"'-(]|$)`, 'g'),
-        postNominal,
+        postNominal
       )
     }
     return name

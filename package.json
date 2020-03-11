@@ -1,6 +1,6 @@
 {
-  "name": "name-case",
-  "version": "0.1.0",
+  "name": "@foundernest/namecase",
+  "version": "0.0.0",
   "description": "A library for fixing capitalization of people's names. Based on tamtamchik PHP library.",
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
@@ -23,6 +23,7 @@
   "scripts": {
     "build": "microbundle",
     "dev": "microbundle watch",
+    "release": "np",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -34,6 +35,9 @@
     "preversion": "yarn lint",
     "version": "yarn format && git add -A",
     "postversion": "git push && git push --tags"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -55,6 +59,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^25.1.0",
     "microbundle": "^0.11.0",
+    "np": "^6.2.0",
     "prettier": "^1.19.1",
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
