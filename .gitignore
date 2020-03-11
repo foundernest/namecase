@@ -11,3 +11,4 @@ dist
 .idea
 .rts2*
 sizes.csv
+coverage

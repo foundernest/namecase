@@ -43,34 +43,31 @@ class Environment {
 
   // General replacements.
   private REPLACEMENTS = [
-    [/\bAl(?=s+w)/, 'al'], // al Arabic or forename Al.
+    [/\bAl(?=\s+\w)/, 'al'], // al Arabic or forename Al.
     [/\bAp\b/, 'ap'], // ap Welsh.
     [/\b(Bin|Binti|Binte)\b/, 'bin'], // bin, binti, binte Arabic.
-    [/\bDell([ae])\b/, 'dell'], // della and delle Italian.
-    [/\bD([aeiou])\b/, 'd'], // da, de, di Italian; du French; do Brasil.
-    [/\bD([ao]s)\b/, 'd'], // das, dos Brasileiros.
-    [/\bDe([lrn])\b/, 'de'], // del Italian; der/den Dutch/Flemish.
-    [/\bL([eo])\b/, 'l'], // lo Italian; le French.
-    [/\bTe([rn])\b/, 'te'], // ten, ter Dutch/Flemish.
+    [/\bDell([ae])\b/, 'dell$1'], // della and delle Italian.
+    [/\bD([aeiou])\b/, 'd$1'], // da, de, di Italian; du French; do Brasil.
+    [/\bD([ao]s)\b/, 'd$1'], // das, dos Brasileiros.
+    [/\bDe([lrn])\b/, 'de$1'], // del Italian; der/den Dutch/Flemish.
+    [/\bL([eo])\b/, 'l$1'], // lo Italian; le French.
+    [/\bEl\b/, 'el'], // el Greek or El Spanish.
+    [/\bLa\b/, 'la'], // la French or La Spanish.
+    [/\bTe([rn])\b/, 'te$1'], // ten, ter Dutch/Flemish.
     [/\bVan(?=\s+\w)/, 'van'], // van German or forename Van.
     [/\bVon\b/, 'von'], // von Dutch/Flemish.
   ]
 
-  private SPANISH = [
-    [/\bEl\b/, 'el'], // el Greek or El Spanish.
-    [/\bLa\b/, 'la'], // la French or La Spanish.
-  ]
-
   private HEBREW = [
-    [/\bBen(?=s+w)/, 'ben'], // ben Hebrew or forename Ben.
-    [/\bBat(?=s+w)/, 'bat'], // bat Hebrew or forename Bat.
+    [/\bBen(?=\s+\w)/, 'ben'], // ben Hebrew or forename Ben.
+    [/\bBat(?=\s+\w)/, 'bat'], // bat Hebrew or forename Bat.
   ]
 
   // Spanish conjunctions.
   private CONJUNCTIONS = ['Y', 'E', 'I']
 
   // Roman letters regexp.
-  private ROMAN_REGEX = /\b((?:[Xx]{1,3}|[Xx][Ll]|[Ll][Xx]{0,3})?(?:[Ii]{1,3}|[Ii][VvXx]|[Vv][Ii]{0,3})?)\b/
+  private ROMAN_REGEX = /\b((?:[Xx]{1,3}|[Xx][Ll]|[Ll][Xx]{0,3})?(?:[Ii]{1,3}|[Ii][VvXx]|[Vv][Ii]{0,3})?)\b/g
 
   // Post nominal values.
   // prettier-ignore
@@ -85,7 +82,7 @@ class Environment {
     'HNC', 'HNCert', 'HND', 'HNDip',
     'ICTTech', 'IDSM', 'IEng', 'IMarEng', 'IOMCPM', 'ISO',
     'J', 'JP', 'JrLog',
-    'KBE', 'KC', 'KCB', 'KCIE', 'KCMG', 'KCSI', 'KCVO', 'KG', 'KP', 'KT',
+    'KBE', 'KC', 'KCB', 'KCIE', 'KCMmG', 'KCSI', 'KCVO', 'KG', 'KP', 'KT',
     'LFHOM', 'LG', 'LJ', 'LLB', 'LLD', 'LLM', 'Log', 'LPE', 'LT', 'LVO',
     'MA', 'MAcc', 'MAnth', 'MArch', 'MarEngTech', 'MB', 'MBA', 'MBChB', 'MBE', 'MBEIOM', 'MBiochem', 'MC', 'MCEM', 'MCGI', 'MCh.', 'MChem', 'MChiro', 'MClinRes', 'MComp', 'MCOptom', 'MCSM', 'MCSP', 'MD', 'MEarthSc', 'MEng', 'MEnt', 'MEP', 'MFHOM', 'MFin', 'MFPM', 'MGeol', 'MILT', 'MJur', 'MLA', 'MLitt', 'MM', 'MMath', 'MMathStat', 'MMORSE', 'MMus', 'MOst', 'MP', 'MPAMEd', 'MPharm', 'MPhil', 'MPhys', 'MRCGP', 'MRCOG', 'MRCP', 'MRCPath', 'MRCPCHFRCPCH', 'MRCPsych', 'MRCS', 'MRCVS', 'MRes', 'MS', 'MSc', 'MScChiro', 'MSci', 'MSCR', 'MSM', 'MSocSc', 'MSP', 'MSt', 'MSW', 'MSYP', 'MVO',
     'NPQH',
@@ -106,10 +103,12 @@ class Environment {
     lazy: true,
     irish: true,
     spanish: true,
-    roman: false,
+    roman: true,
     hebrew: true,
     postnominal: true,
   }
+
+  private bckOptions: EnvironmentOptions = {}
 
   constructor(options: EnvironmentOptions) {
     this.setOptions(options)
@@ -122,6 +121,14 @@ class Environment {
    */
   setOptions(options: EnvironmentOptions): void {
     this.options = { ...this.options, ...options }
+  }
+
+  backupOptions(): void {
+    this.bckOptions = { ...this.options }
+  }
+
+  restoreOptions(): void {
+    this.options = { ...this.bckOptions }
   }
 
   /**
@@ -144,41 +151,29 @@ class Environment {
    */
   nameCase(name: string, options: EnvironmentOptions = {}): string {
     if (name === '') return name
+
+    this.backupOptions()
+
     this.setOptions(options)
 
     // Do not do anything if string is mixed and lazy option is true.
     if (this.options.lazy && this.skipMixed(name)) return name
 
     // Capitalize
-    name = this.capitalize(name)
+    name = this.capitalizeFirstLetters(name)
+
+    name = this.lowercaseFinalS(name)
+
+    name = this.updateIrish(name)
 
     for (const [pattern, replacement] of this.getReplacements()) {
       name = name.replace(pattern, replacement)
     }
 
-    return this.processOptions(name)
-  }
+    name = this.processOptions(name)
 
-  private split(name: string): string {
-    // Split names on regex whitespace, dash or apostrophe, workaround for
-    // Javascript regex word boundary \b splitting on unicode characters
-    // http://stackoverflow.com/questions/5311618/javascript-regular-expression-problem-with-b-and-international-characters
-    const splitters = [
-      { s: /\s/, r: ' ' },
-      { s: /-/, r: '-' },
-      { s: /'/, r: "'" },
-      { s: /"/, r: '"' },
-      { s: /\(/, r: '(' },
-      { s: /\./, r: '.' },
-    ]
+    this.restoreOptions()
 
-    for (const splitter of splitters) {
-      const elArr = name.split(splitter.s)
-      for (let j = 0; j < elArr.length; j++) {
-        elArr[j] = elArr[j].charAt(0).toUpperCase() + elArr[j].slice(1)
-      }
-      name = elArr.join(splitter.r)
-    }
     return name
   }
 
@@ -188,7 +183,7 @@ class Environment {
     }
 
     if (this.options.spanish) {
-      name = this.fixConjunction(name)
+      name = this.updateSpanish(name)
     }
 
     if (this.options.postnominal) {
@@ -205,18 +200,20 @@ class Environment {
    *
    * @returns string
    */
-  private capitalize(name: string): string {
+  private capitalizeFirstLetters(name: string): string {
     name = name.toLowerCase()
 
-    name = name.replace(/\b\w/, (...matches) => matches[0].toUpperCase())
-    name = this.split(name)
+    // Workaround for Javascript regex word boundary \b splitting on unicode characters
+    // https://medium.com/@shiba1014/regex-word-boundaries-with-unicode-207794f6e7ed
+    //return name.replace(new RegExp(`${Unicode.bSeijo}\\.`, 'gu'), (...matches) => matches[0].toUpperCase())
+    return name.replace(/(?<=[\s,.:;"'(-]|^)./g, (...matches) => matches[0].toUpperCase())
+  }
 
+  private lowercaseFinalS(name: string): string {
     // Lowercase 's
-    name = name.replace(/'\w\b/, (...matches) => matches[0].toLowerCase())
-
-    name = this.updateIrish(name)
-
-    return name
+    // Workaround for Javascript regex word boundary \b splitting on unicode characters
+    // https://medium.com/@shiba1014/regex-word-boundaries-with-unicode-207794f6e7ed
+    return name.replace(/'.(?=[\s,.:;"'(-]|$)/g, (...matches) => matches[0].toLowerCase())
   }
 
   /**
@@ -227,9 +224,6 @@ class Environment {
   private getReplacements(): string[][] {
     // General fixes
     let replacements = this.REPLACEMENTS
-    if (!this.options.spanish) {
-      replacements = replacements.concat(this.SPANISH)
-    }
 
     if (this.options.hebrew) {
       replacements = replacements.concat(this.HEBREW)
@@ -283,19 +277,24 @@ class Environment {
    * @returns string
    */
   private updateRoman(name: string): string {
-    return name.replace(this.ROMAN_REGEX, (...matches) => matches[0].toUpperCase())
+    return name.replace(this.ROMAN_REGEX, (...matches) => {
+      return matches[0].toUpperCase()
+    })
   }
 
   /**
-   * Fix Spanish conjunctions.
+   * Fix Spanish rules.
    *
    * @param name
    *
    * @returns string
    */
-  private fixConjunction(name: string): string {
+  private updateSpanish(name: string): string {
     for (const conjunction of this.CONJUNCTIONS) {
-      name = name.replace('\b' + conjunction + '\b', conjunction.toLowerCase())
+      name = name.replace(
+        new RegExp(`(?<=[\\s,.:;"'-(]|^)${conjunction}(?=[\\s,.:;"'-(]|$)`, 'g'),
+        conjunction.toLowerCase(),
+      )
     }
     return name
   }
@@ -309,7 +308,10 @@ class Environment {
   private fixPostNominal(name: string): string {
     const postNominals = this.POST_NOMINALS.filter(x => !this.postNominalsExcluded.includes(x))
     for (const postNominal of postNominals) {
-      name = name.replace(new RegExp('\b' + postNominal + '\b'), postNominal)
+      name = name.replace(
+        new RegExp(`(?<=[\\s,.:;"'-(]|^)${this.capitalizeFirstLetters(postNominal)}(?=[\\s,.:;"'-(]|$)`, 'g'),
+        postNominal,
+      )
     }
     return name
   }
@@ -322,23 +324,18 @@ class Environment {
    * @returns bool
    */
   private skipMixed(name: string): boolean {
-    const firstLetterLower = name[0] == name[0].toLowerCase()
+    const firstLetterLower = name[0] === name[0].toLowerCase()
     const allLowerOrUpper = name.toLowerCase() === name || name.toUpperCase() === name
 
     return !(firstLetterLower || allLowerOrUpper)
   }
-
-  normalize(name: string): string {
-    return name.replace(/\s{2,}/g, ' ')
-  }
-
-  checkName(name: string): boolean {
-    return name === name.toLowerCase() || name === name.toUpperCase()
-  }
 }
 
 const defaultEnvironment = new Environment({})
-export const checkName = (name: string): boolean => defaultEnvironment.checkName(name)
-export const nameCase = (name: string): string => defaultEnvironment.nameCase(name)
+
+export const setOptions = (options: EnvironmentOptions): void => defaultEnvironment.setOptions(options)
+export const excludePostNominals = (values: string | string[]): void => defaultEnvironment.excludePostNominals(values)
+export const nameCase = (name: string, options?: EnvironmentOptions): string =>
+  defaultEnvironment.nameCase(name, options)
 
 export default Environment
