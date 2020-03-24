@@ -6,7 +6,7 @@
   },
   "root": true,
   "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
-  "plugins": ["@typescript-eslint", "jest"],
+  "plugins": ["@typescript-eslint", "prettier", "jest"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended", // Uses the recommended rules from the @typescript-eslint/eslint-plugin
