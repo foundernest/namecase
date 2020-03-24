@@ -1,12 +1,13 @@
 {
   "name": "@foundernest/namecase",
   "version": "0.1.0",
-  "description": "A library for fixing capitalization of people's names. Based on tamtamchik PHP library.",
+  "description": "A fully typed library for fixing capitalization of people's names. Based on tamtamchik PHP library.",
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
   "source": "src/index.ts",
   "module": "dist/index.module.js",
   "unpkg": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -19,7 +20,6 @@
     "case",
     "internationalization"
   ],
-  "types": "dist/index.d.ts",
   "scripts": {
     "build": "microbundle",
     "dev": "microbundle watch",
@@ -28,9 +28,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "format": "prettier --write {src,__tests__}/**/*.ts",
-    "lint": "eslint {src,__tests__}/**/*.ts",
+    "lint": "eslint {src,__tests__}/**/*.ts --fix",
     "coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
-    "prepare": "yarn build",
     "prepublishOnly": "yarn test && yarn lint",
     "preversion": "yarn lint",
     "version": "yarn format && git add -A",
@@ -46,19 +45,32 @@
   "bugs": {
     "url": "https://github.com/foundernest/name-case/issues"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "{src,__tests__}/**/*.ts": [
+      "yarn format",
+      "yarn lint"
+    ]
+  },
   "homepage": "https://github.com/foundernest/name-case#readme",
   "author": "Daniel Seijo <daniseijo.dev@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^25.1.4",
-    "@typescript-eslint/eslint-plugin": "^2.23.0",
-    "@typescript-eslint/parser": "^2.23.0",
-    "coveralls": "^3.0.9",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "coveralls": "^3.0.11",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
     "jest": "^25.1.0",
+    "lint-staged": "^10.0.8",
     "microbundle": "^0.12.0-next",
     "np": "^6.2.0",
     "prettier": "^1.19.1",
