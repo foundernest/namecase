@@ -306,7 +306,7 @@ class Environment {
    * @returns string
    */
   private fixPostNominal(name: string): string {
-    const postNominals = this.POST_NOMINALS.filter(x => !this.postNominalsExcluded.includes(x))
+    const postNominals = this.POST_NOMINALS.filter((x) => !this.postNominalsExcluded.includes(x))
     for (const postNominal of postNominals) {
       name = name.replace(
         new RegExp(`(?<=[\\s,.:;"'-(]|^)${this.capitalizeFirstLetters(postNominal)}(?=[\\s,.:;"'-(]|$)`, 'g'),
