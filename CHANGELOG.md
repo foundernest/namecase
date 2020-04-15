@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2020-03-27
+
 ### Added
 
 - New README content with installation instructions and extra documentation.
@@ -23,5 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release
 
-[unreleased]: https://github.com/foundernest/namecase/compare/v0.1.0...HEAD
+[unreleased]: https://github.com/foundernest/namecase/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/foundernest/namecase/releases/tag/v1.0.0
 [0.1.0]: https://github.com/foundernest/namecase/releases/tag/v0.1.0
