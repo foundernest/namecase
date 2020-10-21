@@ -24,13 +24,13 @@ It correctly deals with names which contain apostrophes and hyphens too.
 Via npm
 
 ```bash
-npm install @DynamiteJobs/namecase
+npm install @foundernest/namecase
 ```
 
 Via yarn
 
 ```bash
-yarn add @DynamiteJobs/namecase
+yarn add @foundernest/namecase
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ yarn add @DynamiteJobs/namecase
 ### Basic usage
 
 ```typescript
-import { nameCase } from '@DynamiteJobs/namecase';
+import { nameCase } from '@foundernest/namecase';
 
 nameCase('KEITH');               // => Keith
 nameCase('LEIGH-WILLIAMS');      // => Leigh-Williams
@@ -56,7 +56,7 @@ nameCase('VAN DYKE');            // => van Dyke
 You can override the default options by calling the `nameCase` function with the `EnvironmentOptions` optional parameter:
 
 ```typescript
-import { nameCase } from '@DynamiteJobs/namecase';
+import { nameCase } from '@foundernest/namecase';
 
 nameCase('macmurdo');                        // => MacMurdo
 nameCase('macmurdo', { irish: false });      // => Macmurdo
@@ -65,7 +65,7 @@ nameCase('macmurdo', { irish: false });      // => Macmurdo
 You can also set the options of all the subsequent calls:
 
 ```typescript
-import { nameCase, setOptions } from '@DynamiteJobs/namecase';
+import { nameCase, setOptions } from '@foundernest/namecase';
 
 nameCase('macmurdo');               // => MacMurdo
 setOptions({ irish: false });
@@ -75,7 +75,7 @@ nameCase('macmurdo');               // => Macmurdo
 Or you can even create a new `Environment` object with custom options:
 
 ```typescript
-import Environment from '@DynamiteJobs/namecase';
+import Environment from '@foundernest/namecase';
 
 const ncEnv = new Environment({
   lazy: false
@@ -97,7 +97,7 @@ ncEnv.nameCase('Na li');     // => Na Li
 ## Exclude Post-Nominals
 
 ```typescript
-import { excludePostNominals, nameCase } from '@DynamiteJobs/namecase';
+import { excludePostNominals, nameCase } from '@foundernest/namecase';
 
 nameCase('ČERNÝ MOST');         // Černý MOst
 excludePostNominals('MOst');
@@ -146,14 +146,14 @@ Typescript version:
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
-[ico-npm]: https://img.shields.io/npm/v/@DynamiteJobs/namecase
-[ico-travis]: https://travis-ci.org/DynamiteJobs/namecase.svg?branch=master
-[ico-coveralls]: https://coveralls.io/repos/github/DynamiteJobs/namecase/badge.svg?branch=master
-[ico-bundle-size]: https://img.shields.io/bundlephobia/min/@DynamiteJobs/namecase
+[ico-npm]: https://img.shields.io/npm/v/@foundernest/namecase
+[ico-travis]: https://travis-ci.org/foundernest/namecase.svg?branch=master
+[ico-coveralls]: https://coveralls.io/repos/github/foundernest/namecase/badge.svg?branch=master
+[ico-bundle-size]: https://img.shields.io/bundlephobia/min/@foundernest/namecase
 
-[link-npm]: https://www.npmjs.org/package/@DynamiteJobs/namecase
-[link-travis]: https://travis-ci.org/DynamiteJobs/namecase
-[link-coveralls]: https://coveralls.io/github/DynamiteJobs/namecase?branch=master
-[link-bundle-size]: https://bundlephobia.com/result?p=@DynamiteJobs/namecase
+[link-npm]: https://www.npmjs.org/package/@foundernest/namecase
+[link-travis]: https://travis-ci.org/foundernest/namecase
+[link-coveralls]: https://coveralls.io/github/foundernest/namecase?branch=master
+[link-bundle-size]: https://bundlephobia.com/result?p=@foundernest/namecase
 
 [link-author]: https://github.com/daniseijo

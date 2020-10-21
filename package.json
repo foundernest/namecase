@@ -1,5 +1,5 @@
 {
-  "name": "@DynamiteJobs/namecase",
+  "name": "@foundernest/namecase",
   "version": "1.0.1",
   "description": "A fully typed library for fixing capitalization of people's names. Based on tamtamchik PHP library.",
   "main": "dist/index.js",
@@ -40,10 +40,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/DynamiteJobs/namecase.git"
+    "url": "https://github.com/foundernest/namecase.git"
   },
   "bugs": {
-    "url": "https://github.com/DynamiteJobs/namecase/issues"
+    "url": "https://github.com/foundernest/namecase/issues"
   },
   "husky": {
     "hooks": {
@@ -56,7 +56,7 @@
       "yarn lint"
     ]
   },
-  "homepage": "https://github.com/DynamiteJobs/namecase#readme",
+  "homepage": "https://github.com/foundernest/namecase#readme",
   "author": "Daniel Seijo <daniseijo.dev@gmail.com>",
   "license": "MIT",
   "devDependencies": {
