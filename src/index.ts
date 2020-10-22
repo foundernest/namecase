@@ -43,24 +43,24 @@ class Environment {
 
   // General replacements.
   private REPLACEMENTS = [
-    [/\bAl(?=\s+\w)/, 'al'], // al Arabic or forename Al.
-    [/\bAp\b/, 'ap'], // ap Welsh.
+    [/\b(Al)(\s+\w)/, 'al$2'], // al Arabic or forename Al.
+    [/\b(Ap)\b/, 'ap'], // ap Welsh.
     [/\b(Bin|Binti|Binte)\b/, 'bin'], // bin, binti, binte Arabic.
     [/\bDell([ae])\b/, 'dell$1'], // della and delle Italian.
     [/\bD([aeiou])\b/, 'd$1'], // da, de, di Italian; du French; do Brasil.
     [/\bD([ao]s)\b/, 'd$1'], // das, dos Brasileiros.
     [/\bDe([lrn])\b/, 'de$1'], // del Italian; der/den Dutch/Flemish.
     [/\bL([eo])\b/, 'l$1'], // lo Italian; le French.
-    [/\bEl\b/, 'el'], // el Greek or El Spanish.
-    [/\bLa\b/, 'la'], // la French or La Spanish.
-    [/\bTe([rn])\b/, 'te$1'], // ten, ter Dutch/Flemish.
-    [/\bVan(?=\s+\w)/, 'van'], // van German or forename Van.
-    [/\bVon\b/, 'von'], // von Dutch/Flemish.
+    [/\b(El)\b/, 'el'], // el Greek or El Spanish.
+    [/\b(La)\b/, 'la'], // la French or La Spanish.
+    [/\b(Te)([rn])\b/, 'te$2'], // ten, ter Dutch/Flemish.
+    [/\b(Van)(\s+\w)/, 'van$2'], // van German or forename Van.
+    [/\b(Von)\b/, 'von'], // von Dutch/Flemish.
   ]
 
   private HEBREW = [
-    [/\bBen(?=\s+\w)/, 'ben'], // ben Hebrew or forename Ben.
-    [/\bBat(?=\s+\w)/, 'bat'], // bat Hebrew or forename Bat.
+    [/\b(Ben)(\s+\w)/, 'ben$2'], // ben Hebrew or forename Ben.
+    [/\b(Bat)(\s+\w)/, 'bat$2'], // bat Hebrew or forename Bat.
   ]
 
   // Spanish conjunctions.
@@ -202,18 +202,15 @@ class Environment {
    */
   private capitalizeFirstLetters(name: string): string {
     name = name.toLowerCase()
-
-    // Workaround for Javascript regex word boundary \b splitting on unicode characters
-    // https://medium.com/@shiba1014/regex-word-boundaries-with-unicode-207794f6e7ed
-    //return name.replace(new RegExp(`${Unicode.bSeijo}\\.`, 'gu'), (...matches) => matches[0].toUpperCase())
-    return name.replace(/(?<=[\s,.:;"'(-]|^)./g, (...matches) => matches[0].toUpperCase())
+    return name.replace(/([\s,.:;"'(-]|^)([^\s,.:;"'(-])/g, (...matches) => matches[1] + matches[2].toUpperCase())
   }
 
   private lowercaseFinalS(name: string): string {
     // Lowercase 's
-    // Workaround for Javascript regex word boundary \b splitting on unicode characters
-    // https://medium.com/@shiba1014/regex-word-boundaries-with-unicode-207794f6e7ed
-    return name.replace(/'.(?=[\s,.:;"'(-]|$)/g, (...matches) => matches[0].toLowerCase())
+    return name.replace(
+      /'([^\s,.:;"'(-])([\s,.:;"'(-]|$)/g,
+      (...matches) => "'" + matches[1].toLowerCase() + matches[2]
+    )
   }
 
   /**
@@ -292,8 +289,8 @@ class Environment {
   private updateSpanish(name: string): string {
     for (const conjunction of this.CONJUNCTIONS) {
       name = name.replace(
-        new RegExp(`(?<=[\\s,.:;"'-(]|^)${conjunction}(?=[\\s,.:;"'-(]|$)`, 'g'),
-        conjunction.toLowerCase()
+        new RegExp(`([\\s,.:;"'-(]|^)${conjunction}([\\s,.:;"'-(]|$)`, 'g'),
+        (...matches) => matches[1] + conjunction.toLowerCase() + matches[2]
       )
     }
     return name
@@ -309,8 +306,8 @@ class Environment {
     const postNominals = this.POST_NOMINALS.filter((x) => !this.postNominalsExcluded.includes(x))
     for (const postNominal of postNominals) {
       name = name.replace(
-        new RegExp(`(?<=[\\s,.:;"'-(]|^)${this.capitalizeFirstLetters(postNominal)}(?=[\\s,.:;"'-(]|$)`, 'g'),
-        postNominal
+        new RegExp(`([\\s,.:;"'-(]|^)${this.capitalizeFirstLetters(postNominal)}([\\s,.:;"'-(]|$)`, 'g'),
+        (...matches) => matches[1] + postNominal + matches[2]
       )
     }
     return name
