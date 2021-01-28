@@ -101,6 +101,7 @@ describe('Environment', () => {
       expect(nameCase('tam phd')).toBe('Tam PhD')
     })
   })
+
   describe('PostNominal exclusion', () => {
     it('tests "MBE" post-nominal', () => {
       expect(nameCase('ADISA AZAPAGIC MBE FRENG FRSC FICHEME')).toBe('Adisa Azapagic MBE Freng Frsc Ficheme')

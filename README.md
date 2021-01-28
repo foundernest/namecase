@@ -147,12 +147,12 @@ Typescript version:
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
 [ico-npm]: https://img.shields.io/npm/v/@foundernest/namecase
-[ico-travis]: https://travis-ci.org/foundernest/namecase.svg?branch=master
+[ico-travis]: https://travis-ci.com/foundernest/namecase.svg?branch=master
 [ico-coveralls]: https://coveralls.io/repos/github/foundernest/namecase/badge.svg?branch=master
 [ico-bundle-size]: https://img.shields.io/bundlephobia/min/@foundernest/namecase
 
 [link-npm]: https://www.npmjs.org/package/@foundernest/namecase
-[link-travis]: https://travis-ci.org/foundernest/namecase
+[link-travis]: https://travis-ci.com/foundernest/namecase
 [link-coveralls]: https://coveralls.io/github/foundernest/namecase?branch=master
 [link-bundle-size]: https://bundlephobia.com/result?p=@foundernest/namecase
 
